@@ -40,18 +40,11 @@ int main (int argc, char * argv[]) {
         cout << "DECLARE A PROVISIONAL VICTORY!" << endl; 
         cout << baton << endl;
     }
-    else if (my_rank == p) {
-        MPI_Recv(baton, 100, MPI_CHAR, my_rank - 1, tag, MPI_COMM_WORLD, &status);
-        sprintf(baton + strlen(baton), " %d ", my_rank);
-        cout << "Run, process " << my_rank << " Run! " << endl; 
-        MPI_Send(baton, strlen(baton)+1, MPI_CHAR, 0, tag, MPI_COMM_WORLD);
-        cout << baton << endl; 
-    }
     else {
         MPI_Recv(baton, 100, MPI_CHAR, my_rank - 1, tag, MPI_COMM_WORLD, &status);
         sprintf(baton + strlen(baton), " %d ", my_rank);
         cout << "Run, process " << my_rank << " Run! " << endl; 
-        MPI_Send(baton, strlen(baton)+1, MPI_CHAR, my_rank + 1, tag, MPI_COMM_WORLD);
+        MPI_Send(baton, strlen(baton)+1, MPI_CHAR, (my_rank + 1) % p, tag, MPI_COMM_WORLD);
         cout << baton << endl; 
     }
 

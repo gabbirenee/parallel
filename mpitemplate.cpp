@@ -28,7 +28,7 @@ int main (int argc, char * argv[]) {
 	MPI_Comm_size(MPI_COMM_WORLD, &p);
 	
 	// THE REAL PROGRAM IS HERE
-    cout << my_rank << endl;    // gets run by every processor
+    
 
 	// Shut down MPI
 	MPI_Finalize();
