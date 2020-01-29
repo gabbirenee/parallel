@@ -35,19 +35,19 @@ int main (int argc, char * argv[]) {
             // cout << sum << endl;
     // STEPS FOR SOLVING AN EMBARRASSINGLY PARALLEL PROBLEM
 
-	/* USING BLOCKING -- blocking assumes that the processors evenly divide the number that you are summing */
+    /* SAME AS MPISUM BUT THIS IS THE STIPING METHOD */
 
 	// 1. Know the problem
 	int n = 300000; 
 	long int sum = 0; 
 
 	// 2. Break the Problem into pieces
-	int local_start = n / p * my_rank; 	// assume that the size of the problem is easily divided by the number of problems
+	int local_start = my_rank; 	// assume that the size of the problem is easily divided by the number of problems
 	// know why this is the number because tbh i don't know why this math works
 
 	// 3. Each process does its own local work
 	long int local_sum; 
-	for(int x = local_start; x < local_start + n/p; x++) {
+	for(int x = local_start; x < n; x += p) {
 		local_sum += x;
 	}
 	

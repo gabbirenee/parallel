@@ -31,7 +31,7 @@ int main (int argc, char * argv[]) {
     sprintf(message, "message here %d %d", my_rank, p);     // fills the character array with the message you input, %d takes the things in the input parameter list and fills it in 
 
     MPI_Send(message, strlen(message)+1, MPI_CHAR, 0, tag, MPI_COMM_WORLD);
-    if(my_rank == 0) {      // recieve all the messages in order - this could still stall the other processes
+    if(my_rank == 0) {      // receive all the messages in order - this could still stall the other processes
         for(int x =0; x < p; x++) {
             MPI_Recv(message, 100, MPI_CHAR, x, tag, MPI_COMM_WORLD, &status);
             cout << message << endl; 
