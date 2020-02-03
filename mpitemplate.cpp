@@ -6,7 +6,7 @@ using namespace std;
 
 // New compile and run commands for MPI!
 // mpicxx -o blah file.cpp
-// mpirun -q -np 32 blah
+// mpirun -q -np 10 blah
 
 int main (int argc, char * argv[]) {
 

@@ -8,7 +8,7 @@ using namespace std;
 
 // New compile and run commands for MPI!
 // mpicxx -o blah file.cpp
-// mpirun -q -np 32 blah
+// mpirun -q -np 10 blah
 
 int main (int argc, char * argv[]) {
 
@@ -64,26 +64,34 @@ int main (int argc, char * argv[]) {
     }
 
     // COLLECT THE RESULTS
-    // if (my_rank != 0) {
-    //     MPI_Send(&localdot, 1, MPI_LONG, 0, tag, MPI_COMM_WORLD); 
-    // }
-    // else {
-    //     dotproduct = localdot; 
-    //     long int temp = 0; 
-    //     for (int x = 1; x < p; x++) {
-    //         MPI_Recv(&temp, 1, MPI_LONG , MPI_ANY_SOURCE, tag, MPI_COMM_WORLD, &status); 
-    //         dotproduct += temp;
-    //     }
-    //     cout << dotproduct << endl; 
-    //     dotproduct = 0; 
-    //     for(int x = 0; x < n; x++) {
-    //         dotproduct += (a[x]*b[x]);
-    //     }
-    //     cout << dotproduct << endl;
-    // }
+        // if (my_rank != 0) {
+        //     MPI_Send(&localdot, 1, MPI_LONG, 0, tag, MPI_COMM_WORLD); 
+        // }
+        // else {
+        //     dotproduct = localdot; 
+        //     long int temp = 0; 
+        //     for (int x = 1; x < p; x++) {
+        //         MPI_Recv(&temp, 1, MPI_LONG , MPI_ANY_SOURCE, tag, MPI_COMM_WORLD, &status); 
+        //         dotproduct += temp;
+        //     }
+        //     cout << dotproduct << endl; 
+        //     dotproduct = 0; 
+        //     for(int x = 0; x < n; x++) {
+        //         dotproduct += (a[x]*b[x]);
+        //     }
+        //     cout << dotproduct << endl;
+        // }
 
     // MPI_Reduce(toCombine, answerVariable, length, type, operation, whereToCombine, MPI_COMM_WORLD)
-    MPI_Reduce(&localdot, &dotproduct, 1, MPI_LONG, MPI_SUM, 0, MPI_COMM_WORLD);
+        // MPI_Reduce(&localdot, &dotproduct, 1, MPI_LONG, MPI_SUM, 0, MPI_COMM_WORLD);     // sends answers to process 0
+
+    // Way to combine using for loop and reduce
+        // for(int x = 0; x < p; x++) {
+        //     MPI_Reduce(&localdot, &dotproduct, 1, MPI_LONG, MPI_SUM, x, MPI_COMM_WORLD);
+        // }
+
+    MPI_Allreduce(&localdot, &dotproduct, 1, MPI_LONG, MPI_SUM, MPI_COMM_WORLD);
+
     cout << dotproduct << endl;
 
     // no memory leaks here
