@@ -37,14 +37,12 @@ int main (int argc, char * argv[]) {
     max = min = 0;
     double average, sum;
     average = sum = 0.0; 
+    
     // fill in the array with random numbers in processor 0
     if(my_rank == 0) {
-        // cout << "Array of Numbers: ";
         for(int x = 0; x < n; x++) {
             a[x] = rand() % 8;
-            // cout << a[x] << " ";
         }
-        // cout << endl;
     }
 
     // dividing the problem up here
@@ -66,8 +64,6 @@ int main (int argc, char * argv[]) {
         }
     }
 
-    // cout << "Max of " << my_rank << ": " << localmax << endl; 
-
     // combine answers back together for the maximum
     MPI_Reduce(&localmax, &max, 1, MPI_INT, MPI_MAX, 0, MPI_COMM_WORLD);
 
@@ -80,9 +76,7 @@ int main (int argc, char * argv[]) {
         if(locala[i] < localmin) {
             localmin = locala[i];
         }
-    }
-
-    // cout << "Min of " << my_rank << ": " << localmin << endl; 
+    } 
 
     // combine all answers for the global minimum
     MPI_Reduce(&localmin, &min, 1, MPI_INT, MPI_MIN, 0, MPI_COMM_WORLD);
@@ -95,8 +89,6 @@ int main (int argc, char * argv[]) {
     for(int i = 0; i < localn; i++) {
         localsum += (double) locala[i];
     }
-
-    // cout << "Local Sums" << 
 
     // combine all local sums together into one giant sum 
     MPI_Reduce(&localsum, &sum, 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
