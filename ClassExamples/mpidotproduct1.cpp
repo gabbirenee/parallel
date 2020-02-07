@@ -53,7 +53,7 @@ int main (int argc, char * argv[]) {
     // After executing the lines of code below, locala and localb will have the "right" info in them
     // In other words,each array will have the block of array a (or b) that corresponds to the local information that they should hav ein their rank
     // Only process 0 has this information before the below lines are run
-    // MPI_SCATTER(toScatter, chunkSize, type, whereToPutChunks, sizeOfLoc, locType, something, MPI_COMM_WORLD)
+    // MPI_SCATTER(toScatter, chunkSize, type, whereToPutChunks, sizeOfLoc, locType, something, MPI_COMM_WORLD);
     MPI_Scatter(&a[0], localn, MPI_INT, locala, localn, MPI_INT, 0, MPI_COMM_WORLD);
     MPI_Scatter(&b[0], localn, MPI_INT, localb, localn, MPI_INT, 0, MPI_COMM_WORLD);
 
@@ -82,7 +82,7 @@ int main (int argc, char * argv[]) {
         //     cout << dotproduct << endl;
         // }
 
-    // MPI_Reduce(toCombine, answerVariable, length, type, operation, whereToCombine, MPI_COMM_WORLD)
+    // MPI_Reduce(toCombine, answerVariable, length, type, operation, whereToCombine, MPI_COMM_WORLD);
         // MPI_Reduce(&localdot, &dotproduct, 1, MPI_LONG, MPI_SUM, 0, MPI_COMM_WORLD);     // sends answers to process 0
 
     // Way to combine using for loop and reduce

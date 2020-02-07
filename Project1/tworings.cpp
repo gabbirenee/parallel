@@ -1,3 +1,7 @@
+// Gabbi Forsythe
+// Parallel Project 1 - Part 1
+// 2/10/2020
+
 #include <iostream>
 #include <stdio.h>
 #include <string.h>
